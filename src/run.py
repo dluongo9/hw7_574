@@ -60,7 +60,7 @@ def mask_loss(loss: Tensor, target: np.ndarray, padding_index: int) -> Tensor:
     # Hint: use get_mask first; t.sum() on a torch Tensor t will return the sum of its elements
     mask = get_mask(target, padding_index)
     denominator = np.count_nonzero(mask == 1)
-    return (loss * mask).sum() / denominator
+    return torch.mul(loss, torch.Tensor(mask)).sum() / denominator
 
 
 def generate(
